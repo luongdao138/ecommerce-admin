@@ -9,7 +9,6 @@ import {
   FormControl,
   InputLabel,
   Button,
-  IconButton,
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

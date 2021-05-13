@@ -1,25 +1,11 @@
-import axios from 'axios';
+import axios from '../helpers/axios';
 
-const rootUrl = 'http://localhost:5000/api/v1/categories';
+export const getAllCategories = () => axios.get('/categories');
 
-export const getAllCategories = () => {
-  return axios.get(rootUrl);
-};
+export const addCategory = (category) => axios.post('/categories', category);
 
-export const addCategory = (category) => {
-  return axios.post(rootUrl, category, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-};
+export const updatedCategories = (data) =>
+  axios.post('/categories/update', data);
 
-export const updatedCategories = (data) => {
-  return axios.post(`${rootUrl}/update`, data, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-};
+export const deleteCategories = (ids) =>
+  axios.post(`/categories/delete`, { ids });

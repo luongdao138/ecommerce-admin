@@ -39,3 +39,7 @@ export const updateCategorySuccess = (categories) => {
 export const updateCategoryFailure = (errorMessage) => {
   return { type: types.UPDATE_CATEGORY_FAILURE, payload: errorMessage };
 };
+
+export const deleteCategories = (ids, cb) => {
+  return { type: types.DELETE_CATEGORIES, payload: { ids, cb } };
+};
