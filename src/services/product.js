@@ -1,15 +1,6 @@
-import axios from 'axios';
+import axios from '../helpers/axios';
 
-const rootUrl = 'http://localhost:5000/api/v1/products';
-
-export const addProduct = (product) => {
-  return axios.post(rootUrl, product, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-};
+export const addProduct = (product) => axios.post('/products', product);
 
 export const getProducts = (config) => {
   const { order, sortBy, limit, skip } = config;
@@ -26,5 +17,5 @@ export const getProducts = (config) => {
   if (skip) {
     queryArray.push(`skip=${skip}`);
   }
-  return axios.get(`${rootUrl}?${queryArray.join('&')}`);
+  return axios.get(`/products?${queryArray.join('&')}`);
 };

@@ -12,7 +12,9 @@ const configureStore = (initState) => {
     initState,
     enhancer(applyMiddleware(sagaMiddleware))
   );
+
   sagaMiddleware.run(rootSaga);
+
   return store;
 };
 

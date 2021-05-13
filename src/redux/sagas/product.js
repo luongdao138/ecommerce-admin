@@ -3,6 +3,7 @@ import * as types from '../types/product';
 import * as actions from '../actions/product';
 import * as services from '../../services/product';
 import { toast } from 'react-toastify';
+import { logout } from '../actions/auth';
 
 function* addProduct({ payload }) {
   yield put(actions.setLoading());
@@ -16,10 +17,14 @@ function* addProduct({ payload }) {
       toast.error(error.response.data.error);
       yield put(actions.addProductFailure(error.response.data.error));
     } else {
-      toast.error('Add product failed! Please try again!');
-      yield put(
-        actions.addProductFailure('Add product failed! Please try again!')
-      );
+      if (error.response.status === 401) {
+        yield put(logout());
+      } else {
+        toast.error('Add product failed! Please try again!');
+        yield put(
+          actions.addProductFailure('Add product failed! Please try again!')
+        );
+      }
     }
   }
   yield put(actions.removeLoading());
