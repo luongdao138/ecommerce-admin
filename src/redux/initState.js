@@ -23,6 +23,11 @@ const initState = {
     loading: false,
     errorMessage: null,
   },
+  page: {
+    list: null,
+    loading: false,
+    errorMessage: null,
+  },
 };
 
 export default initState;

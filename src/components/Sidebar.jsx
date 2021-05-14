@@ -37,6 +37,13 @@ const Sidebar = () => {
           <ListItemText primary='Home' />
         </ListItem>
         <Divider />
+        <ListItem button component={Link} to='/page'>
+          <ListItemIcon>
+            <MenuIcon color='primary' />
+          </ListItemIcon>
+          <ListItemText primary='Page' />
+        </ListItem>
+        <Divider />
         <ListItem button component={Link} to='/categories'>
           <ListItemIcon>
             <MenuIcon color='primary' />

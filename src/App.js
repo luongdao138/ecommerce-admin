@@ -14,6 +14,7 @@ import { loadUser, removeLoading } from './redux/actions/auth';
 import Category from './pages/Category';
 import Product from './pages/Product';
 import { getAllCategories } from './redux/actions/category';
+import NewPage from './pages/NewPage';
 
 function App() {
   const authenticated = useSelector((state) => state.auth.authenticated);
@@ -57,6 +58,14 @@ function App() {
             loading={loading}
           >
             <Category />
+          </PrivateRoute>
+          <PrivateRoute
+            path='/page'
+            exact
+            authenticated={authenticated}
+            loading={loading}
+          >
+            <NewPage />
           </PrivateRoute>
           <PrivateRoute
             path='/products'
