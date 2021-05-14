@@ -24,6 +24,7 @@ const initState = {
   parentId: '',
   description: '',
   image: null,
+  type: '',
 };
 
 const Category = () => {
@@ -41,6 +42,7 @@ const Category = () => {
     formData.append('description', values.description);
     formData.append('parentId', values.parentId);
     formData.append('image', values.image);
+    formData.append('type', values.type);
 
     dispatch(
       addCategory(formData, () => {
@@ -133,6 +135,20 @@ const Category = () => {
                       {item.name}
                     </MenuItem>
                   ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth style={{ marginBottom: '16px' }}>
+              <InputLabel id='demo-simple-select-label'>Select type</InputLabel>
+              <Select
+                labelId='demo-simple-select-label'
+                id='demo-simple-select'
+                name='type'
+                value={values.type}
+                onChange={handleChange}
+              >
+                <MenuItem value='store'>Store</MenuItem>
+                <MenuItem value='page'>Page</MenuItem>
+                <MenuItem value='product'>Product</MenuItem>
               </Select>
             </FormControl>
           </DialogContent>

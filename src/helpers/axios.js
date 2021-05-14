@@ -1,7 +1,5 @@
 import axios from 'axios';
 import { rootUrl } from '../constants/urlConfig';
-import { logout } from '../redux/actions/auth';
-import configureStore from '../redux/store';
 
 const token = localStorage.getItem('token');
 
