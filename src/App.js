@@ -15,6 +15,7 @@ import Category from './pages/Category';
 import Product from './pages/Product';
 import { getAllCategories } from './redux/actions/category';
 import NewPage from './pages/NewPage';
+import Banner from './pages/Banner';
 
 function App() {
   const authenticated = useSelector((state) => state.auth.authenticated);
@@ -74,6 +75,13 @@ function App() {
             loading={loading}
           >
             <Product />
+          </PrivateRoute>
+          <PrivateRoute
+            path='/banners'
+            authenticated={authenticated}
+            loading={loading}
+          >
+            <Banner />
           </PrivateRoute>
           <LoggedInRoute
             path='/login'
