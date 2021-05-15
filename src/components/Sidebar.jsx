@@ -58,6 +58,12 @@ const Sidebar = () => {
           <ListItemText primary='Products' />
         </ListItem>
         <Divider />
+        <ListItem button component={Link} to='/banners'>
+          <ListItemIcon>
+            <MenuIcon color='primary' />
+          </ListItemIcon>
+          <ListItemText primary='Banners' />
+        </ListItem>
       </List>
     </Paper>
   );

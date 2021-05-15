@@ -28,6 +28,11 @@ const initState = {
     loading: false,
     errorMessage: null,
   },
+  banner: {
+    list: null,
+    loading: false,
+    errorMessage: null,
+  },
 };
 
 export default initState;
