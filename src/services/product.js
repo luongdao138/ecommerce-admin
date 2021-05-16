@@ -19,3 +19,17 @@ export const getProducts = (config) => {
   }
   return axios.get(`/products?${queryArray.join('&')}`);
 };
+
+export const getProductBySlug = (slug) => axios.get(`/products/detail/${slug}`);
+
+export const updateProduct = (data) =>
+  axios.put(`/products/${data.slug}`, data);
+
+export const uploadMorePhotos = (slug, data) =>
+  axios.put(`/products/photos/${slug}`, data);
+
+export const updatePhoto = (slug, data) =>
+  axios.put(`/products/photos/update/${slug}`, data);
+
+export const deletePhoto = (slug, filename) =>
+  axios.put(`/products/photos/delete/${slug}`, { filename });

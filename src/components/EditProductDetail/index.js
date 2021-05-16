@@ -1,64 +1,30 @@
 import {
+  Paper,
+  Button,
   TextField,
-  Select,
   FormControl,
   InputLabel,
   MenuItem,
-  Button,
+  Select,
   Grid,
 } from '@material-ui/core';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from '../hooks/useForm';
-import { addProduct } from '../redux/actions/product';
-import { createCategoriesList } from '../helpers/createCategories';
-import { ToastContainer } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { createCategoriesList } from '../../helpers/createCategories';
 
-const initState = {
-  title: '',
-  description: '',
-  price: '',
-  discountPrice: '',
-  quantity: '',
-  category: '',
-  image: null,
-};
-
-const AddProductForm = ({ handleClose, refreshProducts }) => {
-  const dispatch = useDispatch();
-  const submit = () => {
-    let formData = new FormData();
-    if (values['image']) {
-      for (let file of values.image) {
-        formData.append('image', file);
-      }
-    }
-    formData.append('title', values['title']);
-    formData.append('description', values['description']);
-    formData.append('price', values['price']);
-    formData.append('discountPrice', values['discountPrice']);
-    formData.append('quantity', values['quantity']);
-    formData.append('category', values['category']);
-
-    dispatch(
-      addProduct(formData, () => {
-        refreshProducts();
-        resetForm();
-        handleClose();
-      })
-    );
+const EditDetail = ({ product, setProduct }) => {
+  const categoryList = useSelector((state) => state.category.list);
+  const handleChange = (e) => {
+    setProduct({
+      ...product,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const { values, resetForm, handleChange, handleSubmit } = useForm(
-    initState,
-    submit
-  );
-  const categoryList = useSelector((state) => state.category.list);
-
   return (
-    <div style={{ width: '80vw', margin: 'auto' }}>
-      <ToastContainer autoClose={2500} />
-      <form onSubmit={handleSubmit}>
+    <Paper style={{ padding: 20, marginBottom: 10 }}>
+      <h3>Edit detail</h3>
+      {product && (
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <TextField
@@ -68,20 +34,20 @@ const AddProductForm = ({ handleClose, refreshProducts }) => {
               label='Product title'
               type='text'
               fullWidth
+              value={product.title}
               onChange={handleChange}
-              value={values.title}
               style={{ marginBottom: '16px' }}
             />
             <TextField
               margin='dense'
               name='description'
               label='Product description'
+              value={product.description}
+              onChange={handleChange}
               type='text'
               fullWidth
               multiline
               rows={6}
-              onChange={handleChange}
-              value={values.description}
               style={{ marginBottom: '16px' }}
             />
             <TextField
@@ -98,9 +64,11 @@ const AddProductForm = ({ handleClose, refreshProducts }) => {
                   },
                 })
               }
-              value={values.price}
+              value={product.price}
               style={{ marginBottom: '16px' }}
             />
+          </Grid>
+          <Grid item xs={6}>
             <TextField
               margin='dense'
               name='discountPrice'
@@ -115,11 +83,9 @@ const AddProductForm = ({ handleClose, refreshProducts }) => {
                   },
                 })
               }
-              value={values.discountPrice}
+              value={product.discountPrice}
               style={{ marginBottom: '16px' }}
             />
-          </Grid>
-          <Grid item xs={6}>
             <TextField
               margin='dense'
               name='quantity'
@@ -134,24 +100,7 @@ const AddProductForm = ({ handleClose, refreshProducts }) => {
                   },
                 })
               }
-              value={values.quantity}
-              style={{ marginBottom: '38px' }}
-            />
-            <TextField
-              margin='dense'
-              type='file'
-              fullWidth
-              inputProps={{
-                multiple: true,
-              }}
-              onChange={(e) =>
-                handleChange({
-                  target: {
-                    name: 'image',
-                    value: e.target.files,
-                  },
-                })
-              }
+              value={product.quantity}
               style={{ marginBottom: '38px' }}
             />
             <FormControl fullWidth style={{ marginBottom: '16px' }}>
@@ -162,7 +111,7 @@ const AddProductForm = ({ handleClose, refreshProducts }) => {
                 labelId='demo-simple-select-label'
                 id='demo-simple-select'
                 name='category'
-                value={values.category}
+                value={product.category}
                 onChange={handleChange}
               >
                 {categoryList &&
@@ -175,32 +124,9 @@ const AddProductForm = ({ handleClose, refreshProducts }) => {
             </FormControl>
           </Grid>
         </Grid>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            marginTop: '32px',
-            marginBottom: '12px',
-          }}
-        >
-          <Button
-            variant='outlined'
-            type='button'
-            style={{ marginRight: '12px' }}
-            onClick={() => {
-              resetForm();
-              handleClose();
-            }}
-          >
-            Cancel
-          </Button>
-          <Button variant='outlined' type='submit' color='primary'>
-            Submit
-          </Button>
-        </div>
-      </form>
-    </div>
+      )}
+    </Paper>
   );
 };
 
-export default AddProductForm;
+export default EditDetail;
