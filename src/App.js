@@ -16,6 +16,8 @@ import Product from './pages/Product';
 import { getAllCategories } from './redux/actions/category';
 import NewPage from './pages/NewPage';
 import Banner from './pages/Banner';
+import EditProduct from './pages/EditProduct';
+import EditPhotos from './pages/EditPhotos';
 
 function App() {
   const authenticated = useSelector((state) => state.auth.authenticated);
@@ -75,6 +77,22 @@ function App() {
             loading={loading}
           >
             <Product />
+          </PrivateRoute>
+          <PrivateRoute
+            path='/products/edit/:slug'
+            exact
+            authenticated={authenticated}
+            loading={loading}
+          >
+            <EditProduct />
+          </PrivateRoute>
+          <PrivateRoute
+            path='/products/photos/:slug'
+            exact
+            authenticated={authenticated}
+            loading={loading}
+          >
+            <EditPhotos />
           </PrivateRoute>
           <PrivateRoute
             path='/banners'

@@ -9,6 +9,7 @@ import {
   Paper,
   TableHead,
   TablePagination,
+  IconButton,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import Layout from '../helpers/Layout';
@@ -17,6 +18,10 @@ import AddProductForm from '../components/AddProductForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../redux/actions/product';
 import ProductDetail from '../components/ProductDetail';
+import DetailsIcon from '@material-ui/icons/Details';
+import EditIcon from '@material-ui/icons/Edit';
+import { useHistory } from 'react-router-dom';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -47,6 +52,7 @@ const Product = () => {
   const list = useSelector((state) => state.product.data.list);
   const total = useSelector((state) => state.product.data.total);
   const [product, setProduct] = useState(null);
+  const history = useHistory();
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(1);
@@ -97,18 +103,13 @@ const Product = () => {
                 <TableCell align='center'>Price</TableCell>
                 <TableCell align='center'>Quantity</TableCell>
                 <TableCell align='center'>Category</TableCell>
+                <TableCell align='left'>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {list &&
                 list.map((product) => (
-                  <TableRow
-                    key={product._id}
-                    onClick={() => {
-                      setProduct(product);
-                      setOpenDetail(true);
-                    }}
-                  >
+                  <TableRow key={product._id}>
                     <TableCell component='th' scope='row'>
                       {product.title}
                     </TableCell>
@@ -128,6 +129,30 @@ const Product = () => {
                     <TableCell align='right'>{product.price}</TableCell>
                     <TableCell align='right'>{product.quantity}</TableCell>
                     <TableCell align='right'>{product.category.name}</TableCell>
+                    <TableCell>
+                      <IconButton
+                        onClick={() => {
+                          setProduct(product);
+                          setOpenDetail(true);
+                        }}
+                      >
+                        <DetailsIcon />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => {
+                          history.push(`/products/edit/${product.slug}`);
+                        }}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => {
+                          history.push(`/products/photos/${product.slug}`);
+                        }}
+                      >
+                        <PhotoLibraryIcon />
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 ))}
             </TableBody>
